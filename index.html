@@ -1,61 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title> thevcisochad </title>
-    <style>
-        body {
-            background-color: #1B1212;
-            font-family: Arial, sans-serif;
-            color: #fff;
-            text-align: center;
-            padding-top: 20%;
-        }
+    <meta charset="UTF-8">
+    <title>OpenAI Assistant</title>
+    <script>
+        async function sendMessage() {
+            const messageInput = document.getElementById('message');
+            const responseDiv = document.getElementById('response');
 
-        h1 {
-            font-size: 4em;
-        }
+            responseDiv.textContent = "Waiting for response...";
+            
+            try {
+                const response = await fetch('YOUR_CLOUD_FUNCTION_URL', {
+                    method: 'POST',
+                    body: JSON.stringify({ message: messageInput.value }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
 
-        p {
-            font-size: 2em;
-            font-style: italic;
+                const data = await response.json();
+                responseDiv.textContent = data.response || data.error;
+            } catch (error) {
+                responseDiv.textContent = "An error occurred: " + error.message;
+            }
         }
-
-        .rainbow {
-            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-    </style>
+    </script>
 </head>
 <body>
-    <h1 class="rainbow"> Welcome to: </h1>
-    <p>    </p>
-    <pre>
-    <code>
-    <span class="rainbow">
-,---------. .---.  .---.     .-''-.  ,---.  ,---.   _______  .-./`)    .-'''-.     ,-----.        _______   .---.  .---.    ____     ______      
-\          \|   |  |_ _|   .'_ _   \ |   /  |   |  /   __  \ \ .-.')  / _     \  .'  .-,  '.     /   __  \  |   |  |_ _|  .'  __ `. |    _ `''.  
- `--.  ,---'|   |  ( ' )  / ( ` )   '|  |   |  .' | ,_/  \__)/ `-' \ (`' )/`--' / ,-.|  \ _ \   | ,_/  \__) |   |  ( ' ) /   '  \  \| _ | ) _  \ 
-    |   \   |   '-(_{;}_). (_ o _)  ||  | _ |  |,-./  )       `-'`"`(_ o _).   ;  \  '_ /  | :,-./  )       |   '-(_{;}_)|___|  /  ||( ''_'  ) | 
-    :_ _:   |      (_,_) |  (_,_)___||  _( )_  |\  '_ '`)     .---.  (_,_). '. |  _`,/ \ _/  |\  '_ '`)     |      (_,_)    _.-`   || . (_) `. | 
-    (_I_)   | _ _--.   | '  \   .---.\ (_ o._) / > (_)  )  __ |   | .---.  \  :: (  '\_/ \   ; > (_)  )  __ | _ _--.   | .'   _    ||(_    ._) ' 
-   (_(=)_)  |( ' ) |   |  \  `-'    / \ (_,_) / (  .  .-'_/  )|   | \    `-'  | \ `"/  \  ) / (  .  .-'_/  )|( ' ) |   | |  _( )_  ||  (_.\.' /  
-    (_I_)   (_{;}_)|   |   \       /   \     /   `-'`-'     / |   |  \       /   '. \_/``".'   `-'`-'     / (_{;}_)|   | \ (_ o _) /|       .'   
-    '---'   '(_,_) '---'    `'-..-'     `---`      `._____.'  '---'   `-...-'      '-----'       `._____.'  '(_,_) '---'  '.(_,_).' '-----'`     
-                         .-_'''-.  .-./`) ,---------. .---.  .---.   ___    _  _______                          .-./`)     ,-----.               
-                        '_( )_   \ \ .-.')\          \|   |  |_ _| .'   |  | |\  ____  \                        \ .-.')  .'  .-,  '.             
-                       |(_ o _)|  '/ `-' \ `--.  ,---'|   |  ( ' ) |   .'  | || |    \ |                        / `-' \ / ,-.|  \ _ \            
-                       . (_,_)/___| `-'`"`    |   \   |   '-(_{;}_).'  '_  | || |____/ /                         `-'`"`;  \  '_ /  | :           
-                       |  |  .-----..---.     :_ _:   |      (_,_) '   ( \.-.||   _ _ '.                         .---. |  _`,/ \ _/  |           
-          _ _          '  \  '-   .'|   |     (_I_)   | _ _--.   | ' (`. _` /||  ( ' )  \          _ _           |   | : (  '\_/ \   ;           
-         ( ` )          \  `-'`   | |   |    (_(=)_)  |( ' ) |   | | (_ (_) _)| (_{;}_) |         ( ` )          |   |  \ `"/  \  ) /            
-        (_{;}_)          \        / |   |     (_I_)   (_{;}_)|   |  \ /  . \ /|  (_,_)  /        (_{;}_)         |   |   '. \_/``".'             
-         (_,_)            `'-...-'  '---'     '---'   '(_,_) '---'   ``-'`-'' /_______.'          (_,_)          '---'     '-----'               
-                                                                                                                                                 
-        
-        
-    </span>
-    </code>
-    </pre>
+    <h1>OpenAI Assistant</h1>
+    <input type="text" id="message" placeholder="Type your message here">
+    <button onclick="sendMessage()">Send</button>
+    <div id="response"></div>
 </body>
 </html>
